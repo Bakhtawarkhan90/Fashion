@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: fashion
+ labels:
+  app: fash
+
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: fash
+ template:
+  metadata:
+   labels:
+     app: fash
+  spec:
+   containers:
+    - name: fashion
+      image: bakhtawar375/fashion
+      ports:
+       - containerPort: 8000

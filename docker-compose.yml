@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      - MYSQL_ROOT_PASSWORD=qwerty
+      - MYSQL_DATABASE=forms
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - fashion
+
+  flask_app:
+    image: bakhtawar375/fashion
+    container_name: fashion
+    environment:
+      - MYSQL_HOST=database
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=qwerty
+      - MYSQL_DATABASE=forms
+    ports:
+      - "8000:8000"
+    networks:
+      - fashion
+    depends_on:
+      - database
+
+networks:
+  fashion:
+
+volumes:
+  mysqldata:
